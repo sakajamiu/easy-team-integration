@@ -1,7 +1,6 @@
 import { TextInputProps, TouchableOpacityProps } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { SelectDropdownProps } from "react-native-select-dropdown";
-import { EmployeeData } from "@easyteam/ui";
+
 
 declare interface InputFieldProps extends TextInputProps {
     label: string;
@@ -19,7 +18,7 @@ declare interface SelectInputFieldProps  extends Pick<SelectDropdownProps, 'onSe
     containerStyle?: string;
     inputStyle?: string;
     className?: string;
-    data:Array<{title, id}>
+    data:{title, id}[]
 }
 declare interface ButtonProps extends TouchableOpacityProps {
     title: string;

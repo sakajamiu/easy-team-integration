@@ -1,6 +1,6 @@
-import * as Linking from "expo-linking";
+
 import * as SecureStore from 'expo-secure-store'
-import { fetchAPI } from "@/lib/fetch";
+
 
 export interface TokenCache {
     getToken: (key: string) => Promise<string | undefined | null>
@@ -14,7 +14,7 @@ export interface TokenCache {
         const item = await SecureStore.getItemAsync(key)
       
         return item
-      } catch (error) {
+      } catch (_error) {
         
         await SecureStore.deleteItemAsync(key)
         return null
@@ -23,7 +23,7 @@ export interface TokenCache {
     async saveToken(key: string, value: string) {
       try {
         return SecureStore.setItemAsync(key, value)
-      } catch (err) {
+      } catch (_err) {
         return
       }
     },

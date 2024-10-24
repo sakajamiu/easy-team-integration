@@ -43,7 +43,7 @@ export default function TimesheetScreen() {
 const unsubscribe = navigation.addListener("focus", () => { ref.current?.reloadData();
 });
 return unsubscribe;
-}, [navigation]);
+}, [navigation, router]);
 return (
 <>
 <Button onPress={handleBack} title="Back" />
