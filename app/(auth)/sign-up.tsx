@@ -1,4 +1,4 @@
-import { useSignUp, useUser } from "@clerk/clerk-expo";
+import { useSignUp } from "@clerk/clerk-expo";
 import { Link, router } from "expo-router";
 import { useState} from "react";
 import { Alert, Image, ScrollView, Text, View } from "react-native";
@@ -14,7 +14,7 @@ const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-const { user} = useUser()
+
   const [form, setForm] = useState({
     name: "",
     email: "",

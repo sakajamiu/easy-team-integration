@@ -1,4 +1,4 @@
-import { router, useLocalSearchParams, useNavigation} from "expo-router";
+import {  useLocalSearchParams, useNavigation} from "expo-router";
 import { useRef, useLayoutEffect , useEffect} from "react";
 import { ShiftForm, ShiftFormRef } from "@easyteam/ui";
 import { Alert, Platform } from "react-native";
@@ -24,7 +24,7 @@ import dayjs from "dayjs";
     headerLeft,
     });
     
-}, [navigation, date, params, router]);
+}, [navigation, date, params]);
 useEffect (() => {
     const preventGoingBack = (e: any) => {
         if (!ref.current?. unsavedChanges) {
@@ -61,4 +61,4 @@ onSaveSuccess={() => navigation.goBack()} onCancelPress={() => navigation.goBack
 />
 </SafeAreaView>);
  }
-export default ShiftForm
+export default ShiftFormScreen

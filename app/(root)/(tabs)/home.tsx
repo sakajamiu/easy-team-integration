@@ -17,7 +17,7 @@ export default function ClockScreen ( ) {
 
     return(
         <>
-        <SafeAreaView>
+        <SafeAreaView className=" bg-white">
              <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-xl font-JakartaExtraBold">
                 Hi, {user?.firstName}👋

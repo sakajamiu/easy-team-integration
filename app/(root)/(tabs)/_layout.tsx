@@ -59,10 +59,14 @@ if(token && employee){
      basePath={`${process.env.EXPO_PUBLIC_EASY_TEAM_URL!}`}
     isGlobalTimeTrackingEnabled={data?.at(0)?.isglobaltrackingenabled ?? true}>
     <Tabs
+    sceneContainerStyle={
+        {backgroundColor:'#333'}
+    }
       initialRouteName="index"
       screenOptions={{
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
+        
         tabBarShowLabel: false,
         tabBarStyle: {
           backgroundColor: "#333333",
@@ -103,6 +107,7 @@ if(token && employee){
         }}
       />)}
       <Tabs.Screen
+      
         name="time-sheet"
         
         options={{
