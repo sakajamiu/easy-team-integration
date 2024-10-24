@@ -2,14 +2,40 @@
 import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
+import email from "@/assets/icons/email.png";
+import home from "@/assets/icons/home.png";
+import list from "@/assets/icons/list.png";
+import lock from "@/assets/icons/lock.png";
+import google from "@/assets/icons/google.png";
+import setting from "@/assets/icons/settings.png"
+import form from "@/assets/icons/form.png";
+import signUp from "@/assets/images/signup.jpg"
+import person from'@/assets/icons/person.png'
+import check from '@/assets/images/check.png'
+import out from '@/assets/icons/out.png'
+
+export const icons={
+  email,
+  home,
+  list,
+  google,
+  lock,
+  setting,
+  form,
+  person,
+  out
+}
 
 
 export const images = {
   onboarding1,
   onboarding2,
   onboarding3,
+  signUp,
+  check
 
 };
+
 
 
 export const onboarding = [
