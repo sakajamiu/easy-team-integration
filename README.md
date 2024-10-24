@@ -1,50 +1,105 @@
-# Welcome to your Expo app 👋
+<div align="center">
+<h3 align="center"> Easy Team Assessment</h3>
+ <div align="center">
+    This Project take advantage of the latest <a href="https://docs.expo.dev/router/introduction/" target="_blank">expo router feature</a>. it's a full stack application connecting to <a href="htpps://neon.tech/" target="_blank" >neon database</a> and <a href="https://clerk.com" target="_blank">clerk </a> for authentication and <a href="https://www.easyteam.com/" target="_blank">easy team  mobile sdk </a>    </div>
+</div>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## <a name="tech-stack">⚙️ Tech Stack</a>
+React Native
+Expo
+PostgreSQL
+Clerk
+Tailwind CSS
 
-## Get started
+## <a name="features">🔋 Features</a>
+👉 **Onboarding Flow**: Seamless user registration and setup process.
 
-1. Install dependencies
+👉 **Email Password Authentication with Verification**: Secure login with email verification.
 
-   ```bash
-   npm install
-   ```
+👉 **Authorization**: Secure access control for different user roles.
 
-2. Start the app
+👉 **Clock View**: User clock-in, clock-out and take break.
 
-   ```bash
-    npx expo start
-   ```
+👉 **Time Sheet**: Time Sheet view and mannagement.
 
-In the output, you'll find options to open the app in a
+👉 **Setting**: Set and Update Tracking Settings, break epriod, paid and unpaid break.
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+👉 **Employee List view**: Employee list view.
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+👉 **Shift Form View**: Shift form view.
 
-## Get a fresh project
+👉 **Responsive on Android and iOS**: Optimized for both Android and iOS devices.
 
-When you're ready, run:
+and many more, including code architecture and reusability
+
+## <a name="quick-start">🤸 Quick Start</a>
+
+Follow these steps to set up the project locally on your machine.
+
+**Prerequisites**
+
+Make sure you have the following installed on your machine:
+
+- [Git](https://git-scm.com/)
+- [Node.js](https://nodejs.org/en)
+- [npm](https://www.npmjs.com/) (Node Package Manager)
+
+**Cloning the Repository**
 
 ```bash
-npm run reset-project
+git clone https://github.com/sakajamiu/easy-team-integration.git
+cd uber
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+**Installation**
+before installation get a .nprmcId that will allow access to easy-team sdk
+Install the project dependencies using npm:
 
-## Learn more
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm install
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+**Set Up Environment Variables**
 
-## Join the community
+Create a new file named `.env` in the root of your project and add the following content:
 
-Join our community of developers creating universal apps.
+```env
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY=
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+EXPO_PUBLIC_EASY_TEAM_URL=
+DATABASE_URL=
+
+EXPO_PUBLIC_SERVER_URL=https://easy-team-assessment.com/
+
+
+EXPO_PUBLIC_NPMRC=
+STRIPE_SECRET_KEY=
+```
+
+Replace the placeholder values with your actual Clerk, Stripe, NeonDB, Google Maps, andgeoapify credentials. You can
+obtain these credentials by signing up on
+the [Clerk](https://clerk.com/),  [NeonDB](https://neon.tech/), 
+and [EasyTeam](https://www.easyteam.com/) websites respectively.
+
+**Running the Project**
+
+```bash
+npx expo start
+```
+
+Download the [Expo Go](https://expo.dev/go) app and Scan the QR code on your respective device to view the project. Please note the Database Table need to match the project Table to work seemlessly. the project also has some env variables that is deliberately kept on the server. Please reach out for questions and help [Jamiu Saka](mailto:jamiusaka.a@gmail.com?subject=[GitHub]%20Easy%20Assessment%20Submission)
+
+
+## <a name="links">🔗 Links</a>
+
+You can find important links of the technology used below:
+
+- <a href="https://www.nativewind.dev/quick-starts/expo" target="_blank">Expo NativeWind Setup</a>
+- <a href="https://www.nativewind.dev/v4/getting-started/typescript" target="_blank">TypeScript Support for
+  NativeWind</a>
+- <a href="https://docs.expo.dev/guides/using-eslint/" target="_blank">Eslint and Prettier Setup</a>
+- <a href="https://neon.tech/" target="_blank">Serverless NeonDB</a>
+- <a href="https://go.clerk.com/DtiSBEI" target="_blank">Clerk Auth</a>
+- <a href="https://clerk.com/docs/quickstarts/expo" target="_blank">Clerk Expo Quickstart</a>
+- <a href="https://clerk.com/docs/custom-flows/oauth-connections" target="_blank">Clerk Expo OAuth</a>
