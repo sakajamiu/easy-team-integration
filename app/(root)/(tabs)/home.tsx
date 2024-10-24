@@ -20,7 +20,7 @@ export default function ClockScreen ( ) {
         <SafeAreaView>
              <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-xl font-JakartaExtraBold">
-                Welcome {user?.firstName}👋
+                Hi, {user?.firstName}👋
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}
