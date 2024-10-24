@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useFetch} from "@/lib/fetch";
 import { Employee } from "@/types/type";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useNavigation } from "expo-router";
 
 
 const TabIcon = ({
@@ -33,6 +34,7 @@ const TabIcon = ({
 );
 
 export default function Layout() {
+    const navigation = useNavigation()
     const { getToken} = useAuth()
     const {user} = useUser()
     const [token, setToken] = useState<any>('')
@@ -99,9 +101,12 @@ if(token && employee){
       />)}
       <Tabs.Screen
         name="time-sheet"
+        
         options={{
           title: "TimeSheet",
           headerShown: false,
+
+          
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.list} focused={focused} />
           ),
@@ -111,7 +116,10 @@ if(token && employee){
         name="shift-form"
         options={{
           title: "ShiftForm",
-          headerShown: false,
+          headerShown: true,
+          headerTitleAlign:'center',
+          
+          
           tabBarIcon: ({ focused }) => (
             <TabIcon source={icons.form} focused={focused} />
           ),
