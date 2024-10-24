@@ -48,7 +48,7 @@ Make sure you have the following installed on your machine:
 
 ```bash
 git clone https://github.com/sakajamiu/easy-team-integration.git
-cd uber
+cd easy-team-integration
 ```
 
 **Installation**
