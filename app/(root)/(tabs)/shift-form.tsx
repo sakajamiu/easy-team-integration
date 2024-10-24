@@ -6,7 +6,7 @@ import { HeaderBackButton} from '@react-navigation/elements'
 import { SafeAreaView } from "react-native-safe-area-context";
 import dayjs from "dayjs";
 
- export default function ShiftFormScreen() {
+ const ShiftFormScreen =() =>{
     const params = useLocalSearchParams()
     const { employeeId, date  } = params;
     const navigation = useNavigation()
@@ -61,4 +61,4 @@ onSaveSuccess={() => navigation.goBack()} onCancelPress={() => navigation.goBack
 />
 </SafeAreaView>);
  }
-
+export default ShiftForm

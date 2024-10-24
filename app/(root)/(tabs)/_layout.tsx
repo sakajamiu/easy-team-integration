@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useFetch} from "@/lib/fetch";
 import { Employee } from "@/types/type";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "expo-router";
+
 
 
 const TabIcon = ({
@@ -34,7 +34,7 @@ const TabIcon = ({
 );
 
 export default function Layout() {
-    const navigation = useNavigation()
+
     const { getToken} = useAuth()
     const {user} = useUser()
     const [token, setToken] = useState<any>('')
@@ -43,6 +43,9 @@ export default function Layout() {
         await getToken({template: 'easy-team'}).then((res) => setToken(res ))
     }
    const {data:employee} =useFetch<Employee[]|any>(`/(api)/employee/${user?.unsafeMetadata?.locationid}`)
+   const {data} =useFetch<any>('/(api)/setting')
+
+ 
 useEffect(() => {
     fetchToken()
 },[])
@@ -54,7 +57,7 @@ if(token && employee){
     employees={employee} 
    
      basePath={`${process.env.EXPO_PUBLIC_EASY_TEAM_URL!}`}
-    isGlobalTimeTrackingEnabled={true}>
+    isGlobalTimeTrackingEnabled={data?.at(0)?.isglobaltrackingenabled ?? true}>
     <Tabs
       initialRouteName="index"
       screenOptions={{
@@ -125,7 +128,8 @@ if(token && employee){
           ),
         }}
       />
-      <Tabs.Screen
+     { // @ts-ignore
+      user?.unsafeMetadata?.accessrole?.name ==="Admin" &&  <Tabs.Screen
         name="setting"
         options={{
           title: "Setting",
@@ -134,7 +138,7 @@ if(token && employee){
             <TabIcon source={icons.setting} focused={focused} />
           ),
         }}
-      />
+      />}
     </Tabs>
     </EasyTeamProvider>
   );
