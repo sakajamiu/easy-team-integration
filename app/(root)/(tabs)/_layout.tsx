@@ -50,7 +50,7 @@ if(token && employee){
     <EasyTeamProvider
     token={token}
     employees={employee} 
-    
+   
      basePath={`${process.env.EXPO_PUBLIC_EASY_TEAM_URL!}`}
     isGlobalTimeTrackingEnabled={true}>
     <Tabs
@@ -86,6 +86,17 @@ if(token && employee){
           ),
         }}
       />
+      { // @ts-ignore
+      user?.unsafeMetadata?.accessrole?.name ==="Admin" &&(<Tabs.Screen
+        name="employee"
+        options={{
+          title: "EmployeeList",
+          headerShown: false,
+          tabBarIcon: ({ focused }) => (
+            <TabIcon source={icons.employee} focused={focused} />
+          ),
+        }}
+      />)}
       <Tabs.Screen
         name="time-sheet"
         options={{

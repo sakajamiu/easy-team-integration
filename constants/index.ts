@@ -13,6 +13,7 @@ import signUp from "@/assets/images/signup.jpg"
 import person from'@/assets/icons/person.png'
 import check from '@/assets/images/check.png'
 import out from '@/assets/icons/out.png'
+import employee from "@/assets/icons/employee.png"
 
 export const icons={
   email,
@@ -23,7 +24,8 @@ export const icons={
   setting,
   form,
   person,
-  out
+  out,
+  employee
 }
 
 
