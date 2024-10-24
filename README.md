@@ -5,11 +5,11 @@
 </div>
 
 ## <a name="tech-stack">⚙️ Tech Stack</a>
-React Native
-Expo
-PostgreSQL
-Clerk
-Tailwind CSS
+- React Native
+- Expo
+- PostgreSQL
+- Clerk
+- Tailwind CSS
 
 ## <a name="features">🔋 Features</a>
 👉 **Onboarding Flow**: Seamless user registration and setup process.
