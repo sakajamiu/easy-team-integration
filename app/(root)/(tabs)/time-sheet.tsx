@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import CustomButton from '@/components/ComponentButton';
 import { Timesheet, TimesheetRef, AddButton } from '@easyteam/ui';
 import { useRouter, useNavigation, useLocalSearchParams } from 'expo-router';
 import { useLayoutEffect, useCallback, useState, useRef } from 'react';
 import { User } from '@/lib/user';
 
-export default function TimesheetScreen() {
+const TimesheetScreen =() => {
   const ref = useRef<TimesheetRef>(null);
   const { isAdmin } = User();
 
@@ -16,18 +17,17 @@ export default function TimesheetScreen() {
   const [startDate, setStartDate] = useState<string | undefined | any>(pStartDate);
   const [endDate, setEndDate] = useState<string | undefined | any>(pEndDate);
   const handleBack = useCallback(() => {
-    if (ref.current?.adminWritePermissions) {
+    if (ref.current) {
       router.push({ pathname: '/(root)/(tabs)/employee', params: { startDate, endDate } });
     }
-  }, [router, startDate, endDate, ref]);
+  }, [router, startDate, endDate, ref, navigation]);
   useLayoutEffect(() => {
-    if (ref.current?.adminWritePermissions) {
+    if (isAdmin) {
       navigation.setOptions({
         // eslint-disable-next-line react/no-unstable-nested-components
 
         headerRight: () => (
-          <AddButton
-            className=""
+          <AddButton 
             onPress={() =>
               router.push({
                 pathname: '/shift-form',
@@ -76,3 +76,4 @@ export default function TimesheetScreen() {
     </>
   );
 }
+export default TimesheetScreen
