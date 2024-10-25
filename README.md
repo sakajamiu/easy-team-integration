@@ -52,7 +52,7 @@ cd easy-team-integration
 ```
 
 **Installation**
-before installation get a .nprmcId that will allow access to easy-team sdk
+before installation get a .npmrc file that will allow access to easy-team sdk
 Install the project dependencies using npm:
 
 
@@ -74,10 +74,10 @@ EXPO_PUBLIC_SERVER_URL=https://easy-team-assessment.com/
 
 
 EXPO_PUBLIC_NPMRC=
-STRIPE_SECRET_KEY=
+
 ```
 
-Replace the placeholder values with your actual Clerk, Stripe, NeonDB, Google Maps, andgeoapify credentials. You can
+Replace the placeholder values with your actual Clerk,  NeonDB,   credentials. You can
 obtain these credentials by signing up on
 the [Clerk](https://clerk.com/),  [NeonDB](https://neon.tech/), 
 and [EasyTeam](https://www.easyteam.com/) websites respectively.
