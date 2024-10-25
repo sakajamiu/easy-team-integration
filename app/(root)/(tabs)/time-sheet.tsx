@@ -65,8 +65,7 @@ onEditPress={(date: string, selectedEmployeeId: string) =>
     }})
     
     }
-    onEvent={event => console.log(event)}
-
+   
 />
 
 </>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, View, ActivityIndicator } from "react-native";
 import { EasyTeamProvider } from '@easyteam/ui';
