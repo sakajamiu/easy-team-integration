@@ -77,7 +77,7 @@ EXPO_PUBLIC_NPMRC=
 
 ```
 
-Replace the placeholder values with your actual Clerk, Stripe, NeonDB, Google Maps, andgeoapify credentials. You can
+Replace the placeholder values with your actual Clerk,  NeonDB,   credentials. You can
 obtain these credentials by signing up on
 the [Clerk](https://clerk.com/),  [NeonDB](https://neon.tech/), 
 and [EasyTeam](https://www.easyteam.com/) websites respectively.
