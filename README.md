@@ -52,7 +52,7 @@ cd easy-team-integration
 ```
 
 **Installation**
-before installation get a .npmrcId that will allow access to easy-team sdk
+before installation get a .npmrc file that will allow access to easy-team sdk
 Install the project dependencies using npm:
 
 
