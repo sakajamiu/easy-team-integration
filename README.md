@@ -74,7 +74,7 @@ EXPO_PUBLIC_SERVER_URL=https://easy-team-assessment.com/
 
 
 EXPO_PUBLIC_NPMRC=
-STRIPE_SECRET_KEY=
+
 ```
 
 Replace the placeholder values with your actual Clerk, Stripe, NeonDB, Google Maps, andgeoapify credentials. You can
