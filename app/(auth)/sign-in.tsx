@@ -1,20 +1,20 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useSignIn } from "@clerk/clerk-expo";
-import { Link, router } from "expo-router";
-import { useCallback, useState } from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
+import { useSignIn } from '@clerk/clerk-expo';
+import { Link, router } from 'expo-router';
+import { useCallback, useState } from 'react';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
 
-import CustomButton from "@/components/ComponentButton";
-import InputField from "@/components/InputField";
+import CustomButton from '@/components/ComponentButton';
+import InputField from '@/components/InputField';
 
-import { icons, images } from "@/constants";
+import { icons, images } from '@/constants';
 
 const SignIn = () => {
   const { signIn, setActive, isLoaded } = useSignIn();
 
   const [form, setForm] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const onSignInPress = useCallback(async () => {
@@ -26,16 +26,14 @@ const SignIn = () => {
         password: form.password,
       });
 
-      if (signInAttempt.status === "complete") {
+      if (signInAttempt.status === 'complete') {
         await setActive({ session: signInAttempt.createdSessionId });
-        router.replace("/(root)/(tabs)/home");
+        router.replace('/(root)/(tabs)/home');
       } else {
-       
-        Alert.alert("Error", "Log in failed. Please try again.");
+        Alert.alert('Error', 'Log in failed. Please try again.');
       }
     } catch (err: any) {
-      
-      Alert.alert("Error", err.errors[0].longMessage);
+      Alert.alert('Error', err.errors[0].longMessage);
     }
   }, [isLoaded, form]);
 
@@ -69,20 +67,10 @@ const SignIn = () => {
             onChangeText={(value) => setForm({ ...form, password: value })}
           />
 
-          <CustomButton
-            title="Sign In"
-            onPress={onSignInPress}
-            className="mt-6"
-          />
+          <CustomButton title="Sign In" onPress={onSignInPress} className="mt-6" />
 
-       
-
-          <Link
-            href="/sign-up"
-            className="text-lg text-center text-general-200 mt-10"
-          >
-            Don't have an account?{" "}
-            <Text className="text-primary-500">Sign Up</Text>
+          <Link href="/sign-up" className="text-lg text-center text-general-200 mt-10">
+            Don't have an account? <Text className="text-primary-500">Sign Up</Text>
           </Link>
         </View>
       </View>

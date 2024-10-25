@@ -1,62 +1,57 @@
-import { useSignUp } from "@clerk/clerk-expo";
-import { Link, router } from "expo-router";
-import { useState} from "react";
-import { Alert, Image, ScrollView, Text, View } from "react-native";
-import { ReactNativeModal } from "react-native-modal";
-import SelectInputField from "@/components/SelectInput";
-import CustomButton from "@/components/ComponentButton";
-import InputField from "@/components/InputField";
-import { icons, images } from "@/constants";
-import { fetchAPI, useFetch } from "@/lib/fetch";
-
+import { useSignUp } from '@clerk/clerk-expo';
+import { Link, router } from 'expo-router';
+import { useState } from 'react';
+import { Alert, Image, ScrollView, Text, View } from 'react-native';
+import { ReactNativeModal } from 'react-native-modal';
+import SelectInputField from '@/components/SelectInput';
+import CustomButton from '@/components/ComponentButton';
+import InputField from '@/components/InputField';
+import { icons, images } from '@/constants';
+import { fetchAPI, useFetch } from '@/lib/fetch';
 
 const SignUp = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    accessRoleId:"",
-    locationId:""
-
+    name: '',
+    email: '',
+    password: '',
+    accessRoleId: '',
+    locationId: '',
   });
   const [verification, setVerification] = useState({
-    state: "default",
-    error: "",
-    code: "",
+    state: 'default',
+    error: '',
+    code: '',
   });
 
-  const {data:locations} =useFetch<any>('/(api)/location')
-  const { data:roles}=useFetch<any>('/(api)/role')
+  const { data: locations } = useFetch<any>('/(api)/location');
+  const { data: roles } = useFetch<any>('/(api)/role');
 
   const onSignUpPress = async () => {
-    const accessrole = roles?.find((items :any) => items?.id === form.accessRoleId)
+    const accessrole = roles?.find((items: any) => items?.id === form.accessRoleId);
     if (!isLoaded) return;
     try {
       await signUp.create({
         emailAddress: form.email,
         password: form.password,
         firstName: form.name,
-        unsafeMetadata:{
+        unsafeMetadata: {
           locationid: form.locationId,
           accessrole: {
             name: accessrole?.title,
-            permissions: accessrole?.permissions
-          }
-        }
+            permissions: accessrole?.permissions,
+          },
+        },
       });
-      await signUp.prepareEmailAddressVerification({ strategy: "email_code" });
+      await signUp.prepareEmailAddressVerification({ strategy: 'email_code' });
       setVerification({
         ...verification,
-        state: "pending",
+        state: 'pending',
       });
     } catch (err: any) {
-      
-     
-      Alert.alert("Error", err.errors[0].longMessage);
+      Alert.alert('Error', err.errors[0].longMessage);
     }
   };
   const onPressVerify = async () => {
@@ -65,39 +60,35 @@ const SignUp = () => {
       const completeSignUp = await signUp.attemptEmailAddressVerification({
         code: verification.code,
       });
-      if (completeSignUp.status === "complete") {
-       
-        
+      if (completeSignUp.status === 'complete') {
         await setActive({ session: completeSignUp.createdSessionId });
-        await fetchAPI("/(api)/user", {
-          method: "POST",
+        await fetchAPI('/(api)/user', {
+          method: 'POST',
           body: JSON.stringify({
             name: form.name,
             email: form.email,
             employeeId: completeSignUp.createdUserId,
             accessRoleId: form.accessRoleId,
-            locationId: form.locationId
+            locationId: form.locationId,
           }),
         });
-       
-        
+
         setVerification({
           ...verification,
-          state: "success",
+          state: 'success',
         });
       } else {
         setVerification({
           ...verification,
-          error: "Verification failed. Please try again.",
-          state: "failed",
+          error: 'Verification failed. Please try again.',
+          state: 'failed',
         });
       }
     } catch (err: any) {
-      
       setVerification({
         ...verification,
         error: err.errors[0].longMessage,
-        state: "failed",
+        state: 'failed',
       });
     }
   };
@@ -135,52 +126,45 @@ const SignUp = () => {
             value={form.password}
             onChangeText={(value) => setForm({ ...form, password: value })}
           />
-          <SelectInputField  data={roles} label="Choose Role" onSelect={(selectedItem) => setForm({... form, accessRoleId: selectedItem.id})}/>
-          <SelectInputField  data={locations} label="Choose Location" onSelect={(selectedItem) => setForm({... form, locationId: selectedItem.id})}/>
-          <CustomButton
-            title="Sign Up"
-            onPress={onSignUpPress}
-            className="mt-6"
+          <SelectInputField
+            data={roles}
+            label="Choose Role"
+            onSelect={(selectedItem) => setForm({ ...form, accessRoleId: selectedItem.id })}
           />
-    
-          <Link
-            href="/sign-in"
-            className="text-lg text-center text-general-200 mt-10"
-          >
-            Already have an account?{" "}
-            <Text className="text-primary-500">Log In</Text>
+          <SelectInputField
+            data={locations}
+            label="Choose Location"
+            onSelect={(selectedItem) => setForm({ ...form, locationId: selectedItem.id })}
+          />
+          <CustomButton title="Sign Up" onPress={onSignUpPress} className="mt-6" />
+
+          <Link href="/sign-in" className="text-lg text-center text-general-200 mt-10">
+            Already have an account? <Text className="text-primary-500">Log In</Text>
           </Link>
         </View>
         <ReactNativeModal
-          isVisible={verification.state === "pending"}
-          
+          isVisible={verification.state === 'pending'}
           onModalHide={() => {
-            if (verification.state === "success") {
+            if (verification.state === 'success') {
               setShowSuccessModal(true);
             }
           }}
         >
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
-            <Text className="font-JakartaExtraBold text-2xl mb-2">
-              Verification
-            </Text>
+            <Text className="font-JakartaExtraBold text-2xl mb-2">Verification</Text>
             <Text className="font-Jakarta mb-5">
               We've sent a verification code to {form.email}.
             </Text>
             <InputField
-              label={"Code"}
+              label={'Code'}
               icon={icons.lock}
-              placeholder={"12345"}
+              placeholder={'12345'}
               value={verification.code}
               keyboardType="numeric"
-              onChangeText={(code) =>
-                setVerification({ ...verification, code })
-              }
+              onChangeText={(code) => setVerification({ ...verification, code })}
             />
             {verification.error && (
-              <Text className="text-red-500 text-sm mt-1">
-                {verification.error}
-              </Text>
+              <Text className="text-red-500 text-sm mt-1">{verification.error}</Text>
             )}
             <CustomButton
               title="Verify Email"
@@ -191,13 +175,8 @@ const SignUp = () => {
         </ReactNativeModal>
         <ReactNativeModal isVisible={showSuccessModal}>
           <View className="bg-white px-7 py-9 rounded-2xl min-h-[300px]">
-            <Image
-              source={images.check}
-              className="w-[110px] h-[110px] mx-auto my-5"
-            />
-            <Text className="text-3xl font-JakartaBold text-center">
-              Verified
-            </Text>
+            <Image source={images.check} className="w-[110px] h-[110px] mx-auto my-5" />
+            <Text className="text-3xl font-JakartaBold text-center">Verified</Text>
             <Text className="text-base text-gray-400 font-Jakarta text-center mt-2">
               You have successfully verified your account.
             </Text>

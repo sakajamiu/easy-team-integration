@@ -14,26 +14,24 @@ export default function EmployeesScreen() {
     return params ? params.endDate : undefined;
   }, [params]);
   useLayoutEffect(() => {
-    // Reload the report data when the screen is focused
     const unsubscribe = navigation.addListener('focus', () => {
       ref.current?.reloadData();
     });
     return unsubscribe;
   }, [navigation]);
-
+  const handleEmployeeReportPress = ({
+    employeeId,
+    startDate,
+    endDate,
+  }: {
+    employeeId: string;
+    startDate: any;
+    endDate: any;
+  }) => router.push({ pathname: '/time-sheet', params: { employeeId, startDate, endDate } });
   return (
     <EmployeesTimesheet
       ref={ref}
-      onEmployeeReportPress={({
-        employeeId,
-        startDate,
-        endDate,
-      }: {
-        employeeId: string;
-        startDate: any;
-        endDate: any;
-      }) => router.push({ pathname: '/time-sheet', params: { employeeId, startDate, endDate } })}
-      
+      onEmployeeReportPress={handleEmployeeReportPress}
       startDate={startDate as string | undefined}
       endDate={endDate as string | undefined}
     />

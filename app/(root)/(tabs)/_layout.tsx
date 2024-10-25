@@ -1,155 +1,105 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, View, ActivityIndicator } from "react-native";
+import { Tabs, useRouter } from 'expo-router';
+import { ActivityIndicator, Alert } from 'react-native';
 import { EasyTeamProvider } from '@easyteam/ui';
-import { icons } from "@/constants";
-import { useAuth , useUser} from "@clerk/clerk-expo"
-import { useEffect, useState } from "react";
-import { useFetch} from "@/lib/fetch";
-import { Employee } from "@/types/type";
-import { SafeAreaView } from "react-native-safe-area-context";
-
-
-
-const TabIcon = ({
-  source,
-  focused,
-}: {
-  source: ImageSourcePropType;
-  focused: boolean;
-}) => (
-  <View
-    className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
-  >
-    <View
-      className={`rounded-full w-12 h-12 items-center justify-center ${focused ? "bg-general-400" : ""}`}
-    >
-      <Image
-        source={source}
-        tintColor=" "
-        resizeMode="contain"
-        className="w-7 h-7"
-      />
-    </View>
-  </View>
-);
+import { icons } from '@/constants';
+import { useAuth } from '@clerk/clerk-expo';
+import { useEffect, useState } from 'react';
+import { useFetch } from '@/lib/fetch';
+import { Employee } from '@/types/type';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import TabIcon from '@/components/TabIcon';
+import { User } from '@/lib/user';
+import { ScreenOptions } from '@/constants/tabScreenOptions';
 
 export default function Layout() {
+  const { getToken } = useAuth();
 
-    const { getToken} = useAuth()
-    const {user} = useUser()
-    const [token, setToken] = useState<any>('')
-   
-    const fetchToken = async() =>{
-        await getToken({template: 'easy-team'}).then((res) => setToken(res ))
+  const [token, setToken] = useState<any>('');
+  const router = useRouter();
+  const { locationId, isAdmin } = User();
+
+  const fetchToken = async () => {
+    try {
+      await getToken({ template: 'easy-team' }).then((res) => setToken(res));
+    } catch (err: any) {
+      Alert.alert('Error', err.errors[0].longMessage);
+      router.push('/(auth)/sign-in');
     }
-   const {data:employee} =useFetch<Employee[]|any>(`/(api)/employee/${user?.unsafeMetadata?.locationid}`)
-   const {data} =useFetch<any>('/(api)/setting')
+  };
+  const { data: employee } = useFetch<Employee[] | any>(`/(api)/employee/${locationId}`);
+  const { data: isglobaltrackingenabled } = useFetch<any>('/(api)/setting');
 
- 
-useEffect(() => {
-    fetchToken()
-},[])
+  useEffect(() => {
+    fetchToken();
+  }, []);
 
-if(token && employee){
+  if (token && employee) {
+    return (
+      <EasyTeamProvider
+        token={token}
+        employees={employee}
+        basePath={`${process.env.EXPO_PUBLIC_EASY_TEAM_URL!}`}
+        isGlobalTimeTrackingEnabled={isglobaltrackingenabled}
+      >
+        <Tabs
+          sceneContainerStyle={{ backgroundColor: '#333' }}
+          initialRouteName="index"
+          screenOptions={ScreenOptions}
+        >
+          <Tabs.Screen
+            name="home"
+            options={{
+              title: 'Home',
+              headerShown: false,
+              tabBarIcon: ({ focused }) => <TabIcon source={icons.home} focused={focused} />,
+            }}
+          />
+
+          <Tabs.Screen
+            name="employee"
+            options={{
+              title: 'EmployeeList',
+              headerShown: false,
+              href: isAdmin ? '/(root)/(tabs)/employee' : null,
+              tabBarIcon: ({ focused }) => <TabIcon source={icons.employee} focused={focused} />,
+            }}
+          />
+          <Tabs.Screen
+            name="time-sheet"
+            options={{
+              title: 'TimeSheet',
+              headerShown: true,
+              tabBarIcon: ({ focused }) => <TabIcon source={icons.list} focused={focused} />,
+            }}
+          />
+          <Tabs.Screen
+            name="shift-form"
+            options={{
+              title: 'ShiftForm',
+              headerShown: true,
+              headerTitleAlign: 'center',
+
+              tabBarIcon: ({ focused }) => <TabIcon source={icons.form} focused={focused} />,
+            }}
+          />
+
+          <Tabs.Screen
+            name="setting"
+            options={{
+              title: 'Setting',
+              headerShown: false,
+              href: isAdmin ? '/(root)/(tabs)/setting' : null,
+              tabBarIcon: ({ focused }) => <TabIcon source={icons.setting} focused={focused} />,
+            }}
+          />
+        </Tabs>
+      </EasyTeamProvider>
+    );
+  }
   return (
-    <EasyTeamProvider
-    token={token}
-    employees={employee} 
-   
-     basePath={`${process.env.EXPO_PUBLIC_EASY_TEAM_URL!}`}
-    isGlobalTimeTrackingEnabled={data?.at(0)?.isglobaltrackingenabled ?? true}>
-    <Tabs
-    sceneContainerStyle={
-        {backgroundColor:'#333'}
-    }
-      initialRouteName="index"
-      screenOptions={{
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
-        
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "#333333",
-          borderRadius: 50,
-          paddingBottom: 0, // ios only
-          overflow: "hidden",
-          marginHorizontal: 20,
-          marginBottom: 5,
-          marginTop:20,
-          height: 78,
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexDirection: "row",
-          //position: "absolute",
-        },
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: "Home",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.home} focused={focused} />
-          ),
-        }}
-      />
-      { // @ts-ignore
-      user?.unsafeMetadata?.accessrole?.name ==="Admin" &&(<Tabs.Screen
-        name="employee"
-        options={{
-          title: "EmployeeList",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.employee} focused={focused} />
-          ),
-        }}
-      />)}
-      <Tabs.Screen
-      
-        name="time-sheet"
-        
-        options={{
-          title: "TimeSheet",
-          headerShown: false,
-
-          
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.list} focused={focused} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="shift-form"
-        options={{
-          title: "ShiftForm",
-          headerShown: true,
-          headerTitleAlign:'center',
-          
-          
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.form} focused={focused} />
-          ),
-        }}
-      />
-     { // @ts-ignore
-      user?.unsafeMetadata?.accessrole?.name ==="Admin" &&  <Tabs.Screen
-        name="setting"
-        options={{
-          title: "Setting",
-          headerShown: false,
-          tabBarIcon: ({ focused }) => (
-            <TabIcon source={icons.setting} focused={focused} />
-          ),
-        }}
-      />}
-    </Tabs>
-    </EasyTeamProvider>
+    <SafeAreaView className="flex justify-center items-center">
+      <ActivityIndicator size="small" color="#000" />
+    </SafeAreaView>
   );
-}
-return <SafeAreaView className="flex justify-center items-center" >
-    <ActivityIndicator size="small" color="#000" />
-  </SafeAreaView>
 }

@@ -1,4 +1,5 @@
-import { neon } from "@neondatabase/serverless";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { neon } from '@neondatabase/serverless';
 
 export async function GET(request: Request) {
   try {
@@ -7,7 +8,6 @@ export async function GET(request: Request) {
 
     return Response.json({ data: response });
   } catch (error) {
-    console.error("Error fetching roles", error);
-    return Response.json({ error: "Internal Server Error" }, { status: 500 });
+    return Response.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
