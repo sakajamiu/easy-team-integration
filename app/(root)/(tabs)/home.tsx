@@ -31,7 +31,7 @@ export default function ClockScreen ( ) {
             </View>
             
         </SafeAreaView>
-        <Clock onEvent={event => console.log(event)}/>
+        <Clock />
         </>
     )
 }

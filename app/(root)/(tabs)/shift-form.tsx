@@ -57,7 +57,9 @@ return (
     <ShiftForm
 ref={ref}
 employeeId={employeeId as string} shiftDate={date as string}
-onSaveSuccess={() => navigation.goBack()} onCancelPress={() => navigation.goBack()} onEvent={event => console.log(event)}
+onSaveSuccess={() => navigation.goBack()}
+ onCancelPress={() => navigation.goBack()}
+  
 />
 </SafeAreaView>);
  }
