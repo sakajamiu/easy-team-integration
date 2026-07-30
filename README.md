@@ -1,5 +1,5 @@
 <div align="center">
-<h3 align="center"> Easy Team Assessment</h3>
+<h3 align="center"> Easy Team </h3>
  <div align="center">
     This Project take advantage of the latest <a href="https://docs.expo.dev/router/introduction/" target="_blank">expo router feature</a>. it's a full stack application connecting to <a href="htpps://neon.tech/" target="_blank" >neon database</a> and <a href="https://clerk.com" target="_blank">clerk </a> for authentication and <a href="https://www.easyteam.com/" target="_blank">easy team  mobile sdk </a>    </div>
 </div>
